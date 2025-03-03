@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>15:00 Timer for a break!</title>
+ <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+ <header class="header">
+  <div class="logo">
+   <svg class="logo-icon" viewBox="0 0 24 24">
+    <path
+     d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z" />
+   </svg>
+   Pomofocus
+  </div>
+  <div class="buttons">
+   <button class="btn">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+     <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+     <polyline points="7 10 12 15 17 10" />
+     <line x1="12" y1="15" x2="12" y2="3" />
+    </svg>
+    Report
+   </button>
+   <button class="btn" id="settingsBtn">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+     <circle cx="12" cy="12" r="3" />
+     <path
+      d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" />
+    </svg>
+    Setting
+   </button>
+   <button class="btn">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+     <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+     <circle cx="12" cy="7" r="4" />
+    </svg>
+    Login
+   </button>
+  </div>
+ </header>
+
+ <div class="container">
+  <div class="tabs">
+   <div class="tab active" data-type="pomodoro">Pomodoro</div>
+   <div class="tab" data-type="short-break">Short Break</div>
+   <div class="tab" data-type="long-break">Long Break</div>
+  </div>
+
+  <div>
+   <div class="time">25:00</div>
+   <div class="controls">
+    <button class="start-btn">START</button>
+    <button class="skip-btn">SKIP</button>
+   </div>
+  </div>
+
+  <div class="counter">#1</div>
+  <div class="message">Time to focus!</div>
+ </div>
+
+ <!-- Settings Modal -->
+ <div class="modal-overlay" id="settingsModal">
+  <div class="modal">
+   <div class="modal-header">
+    <h2 class="modal-title">Timer Settings</h2>
+    <button class="close-btn">&times;</button>
+   </div>
+
+   <div class="settings-group">
+    <h3 class="settings-title">Time (minutes)</h3>
+    <div class="time-inputs">
+     <div class="time-input">
+      <label>Pomodoro</label>
+      <input type="number" id="pomodoroTime" value="25" min="1" max="60">
+     </div>
+     <div class="time-input">
+      <label>Short Break</label>
+      <input type="number" id="shortBreakTime" value="5" min="1" max="60">
+     </div>
+     <div class="time-input">
+      <label>Long Break</label>
+      <input type="number" id="longBreakTime" value="15" min="1" max="60">
+     </div>
+    </div>
+    <div class="colors">
+     <div class="color1"></div>
+     <div class="color2"></div>
+     <div class="color3"></div>
+    </div>
+    <div class="toggle-group">
+     <span class="toggle-label">Auto start Breaks?</span>
+     <label class="toggle">
+      <input type="checkbox" id="autoStartBreaks">
+      <span class="toggle-slider"></span>
+     </label>
+    </div>
+
+    <div class="toggle-group">
+     <span class="toggle-label">Auto start Pomodoros?</span>
+     <label class="toggle">
+      <input type="checkbox" id="autoStartPomodoros">
+      <span class="toggle-slider"></span>
+     </label>
+    </div>
+
+    <div class="time-input">
+     <label>Long Break interval</label>
+     <input type="number" id="longBreakInterval" value="4" min="1" max="10">
+    </div>
+   </div>
+
+   <div class="settings-group">
+    <h3 class="settings-title">Sound</h3>
+    <div class="sound-setting">
+     <label>Alarm Sound</label>
+     <select class="sound-select" id="alarmSound">
+      <option value="digital">Digital</option>
+      <option value="bell">Bell</option>
+      <option value="bird">Bird</option>
+     </select>
+     <div class="volume-control">
+      <input type="range" class="volume-slider" id="alarmVolume" min="0" max="100" value="50">
+     </div>
+    </div>
+
+    <div class="sound-setting">
+     <label>Ticking Sound</label>
+     <select class="sound-select" id="tickingSound">
+      <option value="none">None</option>
+      <option value="ticking-slow">Ticking Slow</option>
+      <option value="ticking-fast">Ticking Fast</option>
+     </select>
+     <div class="volume-control">
+      <input type="range" class="volume-slider" id="tickingVolume" min="0" max="100" value="50">
+     </div>
+    </div>
+   </div>
+
+   <div class="modal-footer">
+    <button class="save-btn">OK</button>
+   </div>
+  </div>
+ </div>
+
+ <script>
+  const timerDisplay = document.querySelector('.time');
+  const startButton = document.querySelector('.start-btn');
+  const skipButton = document.querySelector('.skip-btn');
+  const tabs = document.querySelectorAll('.tab');
+  const counter = document.querySelector('.counter');
+  const message = document.querySelector('.message');
+
+  // Settings elements
+  const settingsBtn = document.getElementById('settingsBtn');
+  const settingsModal = document.getElementById('settingsModal');
+  const closeBtn = document.querySelector('.close-btn');
+  const saveBtn = document.querySelector('.save-btn');
+
+  // Settings inputs
+  const pomodoroTimeInput = document.getElementById('pomodoroTime');
+  const shortBreakTimeInput = document.getElementById('shortBreakTime');
+  const longBreakTimeInput = document.getElementById('longBreakTime');
+  const autoStartBreaksInput = document.getElementById('autoStartBreaks');
+  const autoStartPomodorosInput = document.getElementById('autoStartPomodoros');
+  const longBreakIntervalInput = document.getElementById('longBreakInterval');
+  const alarmSoundSelect = document.getElementById('alarmSound');
+  const alarmVolumeInput = document.getElementById('alarmVolume');
+  const tickingSoundSelect = document.getElementById('tickingSound');
+  const tickingVolumeInput = document.getElementById('tickingVolume');
+
+  let timeLeft;
+  let timerId = null;
+  let pomodoroCount = 1;
+  let settings = {
+   pomodoro: 25 * 60,
+   'short-break': 5 * 60,
+   'long-break': 15 * 60,
+   autoStartBreaks: false,
+   autoStartPomodoros: false,
+   longBreakInterval: 4,
+   alarmSound: 'digital',
+   alarmVolume: 50,
+   tickingSound: 'none',
+   tickingVolume: 50
+  };
+
+  const MESSAGES = {
+   pomodoro: 'Time to focus!',
+   'short-break': 'Time for a short break!',
+   'long-break': 'Time for a long break!'
+  };
+  const startSound = new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBTGH0fPTgjMGHm7A7+OZRA0PVqzn77BdGAg+ltryxnMpBSl+zPLaizsIGGS57OihUBELTKXh8bllHgU2jdXzzn0vBSF1xe/glEILElyx6OyrWBUIQ5zd8sFuJAUuhM/z1YU2Bhxqvu7mnEYODlOq5O+zYBoGPJPY88p2KwUme8rx3I4+CRZiturqpVITC0mi4PK8aB8GM4nU8tGAMQYeb8Pv45ZFDBFYr+ftrVoXCECY3PLEcSYELIHO8diJOQgZaLvt559NEAxPqOPwtmMcBjiP1/PMeS0GI3fH8N2RQAoUXrTp66hVFApGnt/yvmwhBTCG0fPTgjQGHW/A7eSaRQ0PVqzm77BeGQc+ltrzxnUoBSh+zPDaizsIGGS57OihUBELTKXh8bllHgU1jdT0z3wvBSJ1xe/glEILElyx6OyrWRUIRJve8sFuJAUug8/y1oU2Bhxqvu7mnEYODlOq5O+zYRsGPJPY88p3KgUme8rx3I4+CRVht+rqpVMSC0mh4PK8aiAFM4nU8tGAMQYfb8Pv45ZFDBFYr+ftrVwWCECY3PLEcSYELIHO8diJOQgZZ7zs56BODwxPqOPxtmQcBjiP1/PMeS0GI3fH8N2RQAoUXrTp66hWFApGnt/yv2wiBTCG0fPTgzQHHm/A7eSaRQ0PVqzm77BeGQc+ltvyxnUoBSh9y/HajDsIF2W57OihUBELTKXh8blmHgU1jdTy0HwvBSJ1xe/glEILElyx6OyrWRUIRJzd8sFuJAUug8/y1oY2Bhxqvu7mnEYODlOq5O+zYRsGOpPY88p3KgUmfMrx3I4+CRVht+rqpVMSC0mh4PK8aiAFM4nU8tGAMQYfb8Pv45ZFDBFYr+ftrVwWCECY3PLEcSYELIHO8diJOQgZZ7zs56BODwxPqOPxtmQcBjiP1/PMeS0GI3fH8N2RQAoUXrTp66hWFApGnt/yv2wiBTCG0fPTgzQHHm/A7eSaRQ0PVqzm77BeGQc+ltvyxnUoBSh9y/HajDsIF2W57OihUBELTKXh8blmHgU1jdTy0HwvBSJ1xe/glEILElyx6OyrWRUIRJzd8sFuJAUug8/y1oY2Bhxqvu7mnEYODlOq5O+zYRsGOpPY88p3KgUmfMrx3I4+CRVht+rqpVMSC0mh4PK8aiAFM4nU8tGAMQYfb8Pv45ZFDBFYr+ftrVwWCECY3PLEcSYELIHO8diJOQgZZ7zs56BODwxPqOPxtmQcBjiP1/PMeS0GI3fH8N2RQAoUXrTp66hWFApGnt/yv2wiBTCG0fPTgzQHHm/A7eSaRQ0PVqzm77BeGQc+ltvyxnUoBSh9y/HajDsIF2W57OihUBELTKXh8blmHgU1jdTy0HwvBSJ1xe/glEILElyx6OyrWRUIRJzd8sFuJAUug8/y1oY2Bhxqvu7mnEYODlOq5O+zYRsGOpPY88p3KgUmfMrx3I4+CRVht+rqpVMSC0mh4PK8aiAFM4nU8tGBMQYfcMPv45ZFDBFYr+ftrVwWCECY3PLEcSYELIHO8diJOQgZZ7zs56BODwxPqOPxtmQcBjiP1/PMeS0GI3fH8N2RQAoUXrTp66hWFApGnt/yv2wiBTCG0fPTgzQHHm/A7eSaRQ0PVqzm77BeGQc+ltvyxnUoBSh9y/HajDsIF2W57OihUBELTKXh8blmHgU1jdTy0HwvBSJ1xe/glEILElyx6OyrWRUIRJzd8sFuJAU=');
+
+  const endSound = new Audio('data:audio/wav;base64,UklGRpIEAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YW4EAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBTGH0fPTgjMGHm7A7+OZRA0PVqzn77BdGAg+ltryxnMpBSl+zPLaizsIGGS57OihUBELTKXh8bllHgU2jdXzzn0vBSF1xe/glEILElyx6OyrWBUIQ5zd8sFuJAUuhM/z1YU2Bhxqvu7mnEYODlOq5O+zYBoGPJPY88p2KwUme8rx3I4+CRZiturqpVITC0mi4PK8aB8GM4nU8tGAMQYeb8Pv45ZFDBFYr+ftrVoXCECY3PLEcSYELIHO8diJOQgZaLvt559NEAxPqOPwtmMcBjiP1/PMeS0GI3fH8N2RQAoUXrTp66hVFApGnt/yvmwhBTCG0fPTgjQGHW/A7eSaRQ0PVqzm77BeGQc+ltrzxnUoBSh+zPDaizsIGGS57OihUBELTKXh8bllHgU1jdT0z3wvBSJ1xe/glEILElyx6OyrWRUIRJve8sFuJAUug8/y1oU2Bhxqvu7mnEYODlOq5O+zYRsGPJPY88p3KgUme8rx3I4+CRVht+rqpVMSC0mh4PK8aiAFM4nU8tGAMQYfb8Pv45ZFDBFYr+ftrVwWCECY3PLEcSYELIHO8diJOQgZZ7zs56BODwxPqOPxtmQcBjiP1/PMeS0GI3fH8N2RQAoUXrTp66hWFApGnt/yv2wiBTCG0fPTgzQHHm/A7eSaRQ0PVqzm77BeGQc+ltvyxnUoBSh9y/HajDsIF2W57OihUBELTKXh8blmHgU1jdTy0HwvBSJ1xe/glEILElyx6OyrWRUIRJzd8sFuJAUug8/y1oY2Bhxqvu7mnEYODlOq5O+zYRsGOpPY88p3KgUmfMrx3I4+CRVht+rqpVMSC0mh4PK8aiAFM4nU8tGAMQYfb8Pv45ZFDBFYr+ftrVwWCECY3PLEcSYELIHO8diJOQgZZ7zs56BODwxPqOPxtmQcBjiP1/PMeS0GI3fH8N2RQAoUXrTp66hWFApGnt/yv2wiBTCG0fPTgzQHHm/A7eSaRQ0PVqzm77BeGQc+ltvyxnUoBSh9y/HajDsIF2W57OihUBELTKXh8blmHgU1jdTy0HwvBSJ1xe/glEILElyx6OyrWRUIRJzd8sFuJAUug8/y base64,UklGRpIEAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YW4EAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBTGH0fPTgjMGHm7A7+OZRA0PVqzn77BdGAg+ltryxnMpBSl+zPLaizsIGGS57OihUBELTKXh8bllHgU2jdXzzn0vBSF1xe/glEILElyx6OyrWBUIQ5zd8sFuJAUug8/y1oY2Bhxqvu7mnEYODlOq5O+zYRsGOpPY88p3KgUmfMrx3I4+CRVht+rqpVMSC0mh4PK8aiAFM4nU8tGAMQYfb8Pv45ZFDBFYr+ftrVwWCECY3PLEcSYELIHO8diJOQgZZ7zs56BODwxPqOPxtmQcBjiP1/PMeS0GI3fH8N2RQAoUXrTp66hWFApGnt/yv2wiBTCG0fPTgzQHHm/A7eSaRQ0PVqzm77BeGQc+ltvyxnUoBSh9y/HajDsIF2W57OihUBELTKXh8blmHgU1jdTy0HwvBSJ1xe/glEILElyx6OyrWRUIRJzd8sFuJAU=');
+
+  function formatTime(seconds) {
+   const minutes = Math.floor(seconds / 60);
+   const remainingSeconds = seconds % 60;
+   return `${String(minutes).padStart(2, '0')}:${String(remainingSeconds).padStart(2, '0')}`;
+  }
+
+  function switchMode(mode) {
+   document.body.className = mode;
+   timeLeft = settings[mode];
+   timerDisplay.textContent = formatTime(timeLeft);
+   message.textContent = MESSAGES[mode];
+
+   tabs.forEach(tab => {
+    tab.classList.toggle('active', tab.dataset.type === mode);
+   });
+
+   if (timerId) {
+    clearInterval(timerId);
+    timerId = null;
+    startButton.textContent = 'START';
+    skipButton.classList.remove('visible');
+   }
+  }
+
+  function updateCounter() {
+   counter.textContent = `#${pomodoroCount}`;
+  }
+
+  function skipTimer() {
+   endSound.play();
+   const currentMode = document.querySelector('.tab.active').dataset.type;
+   if (currentMode === 'pomodoro') {
+    if (pomodoroCount % settings.longBreakInterval === 0) {
+     switchMode('long-break');
+    } else {
+     switchMode('short-break');
+    }
+    pomodoroCount++;
+    updateCounter();
+   } else {
+    switchMode('pomodoro');
+   }
+
+   startButton.textContent = 'START';
+   skipButton.classList.remove('visible');
+   if (timerId) {
+    clearInterval(timerId);
+    timerId = null;
+   }
+
+   if ((currentMode === 'pomodoro' && settings.autoStartBreaks) ||
+    (currentMode !== 'pomodoro' && settings.autoStartPomodoros)) {
+    setTimeout(startTimer, 300);
+   }
+  }
+
+  function startTimer() {
+   if (timerId) {
+    clearInterval(timerId);
+    timerId = null;
+    startButton.textContent = 'START';
+    skipButton.classList.remove('visible');
+    return;
+   }
+
+   startSound.play();
+   startButton.textContent = 'STOP';
+   skipButton.classList.add('visible');
+
+   timerId = setInterval(() => {
+    timeLeft--;
+    timerDisplay.textContent = formatTime(timeLeft);
+
+    if (timeLeft <= 0) {
+     clearInterval(timerId);
+     endSound.play();
+
+     const currentMode = document.querySelector('.tab.active').dataset.type;
+     if (currentMode === 'pomodoro') {
+      if (pomodoroCount % settings.longBreakInterval === 0) {
+       switchMode('long-break');
+      } else {
+       switchMode('short-break');
+      }
+      pomodoroCount++;
+      updateCounter();
+     } else {
+      switchMode('pomodoro');
+     }
+
+     startButton.textContent = 'START';
+     skipButton.classList.remove('visible');
+     timerId = null;
+
+     if ((currentMode === 'pomodoro' && settings.autoStartBreaks) ||
+      (currentMode !== 'pomodoro' && settings.autoStartPomodoros)) {
+      setTimeout(startTimer, 300);
+     }
+    }
+   }, 1000);
+  }
+
+  // Settings Modal Functions
+  function openSettings() {
+   // Update input values with current settings
+   pomodoroTimeInput.value = settings.pomodoro / 60;
+   shortBreakTimeInput.value = settings['short-break'] / 60;
+   longBreakTimeInput.value = settings['long-break'] / 60;
+   autoStartBreaksInput.checked = settings.autoStartBreaks;
+   autoStartPomodorosInput.checked = settings.autoStartPomodoros;
+   longBreakIntervalInput.value = settings.longBreakInterval;
+   alarmSoundSelect.value = settings.alarmSound;
+   alarmVolumeInput.value = settings.alarmVolume;
+   tickingSoundSelect.value = settings.tickingSound;
+   tickingVolumeInput.value = settings.tickingVolume;
+
+   settingsModal.classList.add('visible');
+  }
+
+  function closeSettings() {
+   settingsModal.classList.remove('visible');
+  }
+
+  function saveSettings() {
+   // Save new settings
+   settings = {
+    pomodoro: parseInt(pomodoroTimeInput.value) * 60,
+    'short-break': parseInt(shortBreakTimeInput.value) * 60,
+    'long-break': parseInt(longBreakTimeInput.value) * 60,
+    autoStartBreaks: autoStartBreaksInput.checked,
+    autoStartPomodoros: autoStartPomodorosInput.checked,
+    longBreakInterval: parseInt(longBreakIntervalInput.value),
+    alarmSound: alarmSoundSelect.value,
+    alarmVolume: parseInt(alarmVolumeInput.value),
+    tickingSound: tickingSoundSelect.value,
+    tickingVolume: parseInt(tickingVolumeInput.value)
+   };
+
+   // Update current timer if not running
+   if (!timerId) {
+    const currentMode = document.querySelector('.tab.active').dataset.type;
+    timeLeft = settings[currentMode];
+    timerDisplay.textContent = formatTime(timeLeft);
+   }
+
+   closeSettings();
+  }
+
+  // Initialize
+  timeLeft = settings.pomodoro;
+  updateCounter();
+
+  // Event Listeners
+  startButton.addEventListener('click', startTimer);
+  skipButton.addEventListener('click', skipTimer);
+  settingsBtn.addEventListener('click', openSettings);
+  closeBtn.addEventListener('click', closeSettings);
+  saveBtn.addEventListener('click', saveSettings);
+
+  tabs.forEach(tab => {
+   tab.addEventListener('click', () => {
+    switchMode(tab.dataset.type);
+   });
+  });
+
+  // Close modal when clicking outside
+  settingsModal.addEventListener('click', (e) => {
+   if (e.target === settingsModal) {
+    closeSettings();
+   }
+  });
+ </script>
+</body>
+
+</html>
